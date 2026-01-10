@@ -9,8 +9,6 @@ public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
 
-    private static final String VALID_USERNAME = "standard_user";
-    private static final String VALID_PASSWORD = "secret_sauce";
     private static final String INVALID_USERNAME = "invalid_user";
     private static final String INVALID_PASSWORD = "invalid_password";
 
@@ -20,7 +18,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void shouldLoginSuccessfullyWithValidCredentials() {
+    public void loginWithValidCredentialsTest() {
         loginPage
                 .open()
                 .login(VALID_USERNAME, VALID_PASSWORD);
@@ -29,7 +27,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void shouldShowErrorMessageWithInvalidCredentials() {
+    public void loginWithInvalidCredentialsTest() {
         loginPage
                 .open()
                 .login(INVALID_USERNAME, INVALID_PASSWORD);

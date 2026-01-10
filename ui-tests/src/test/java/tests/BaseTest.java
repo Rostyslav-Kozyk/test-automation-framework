@@ -9,6 +9,9 @@ public class BaseTest {
 
     protected WebDriver driver;
 
+    protected static final String VALID_USERNAME = "standard_user";
+    protected static final String VALID_PASSWORD = "secret_sauce";
+
     @BeforeClass
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
