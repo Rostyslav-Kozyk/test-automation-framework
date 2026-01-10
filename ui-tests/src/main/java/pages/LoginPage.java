@@ -12,32 +12,36 @@ public class LoginPage {
     private final By usernameInput = By.id("user-name");
     private final By passwordInput = By.id("password");
     private final By loginButton = By.id("login-button");
-    private final By errorMessage = By.xpath("//h3[@data-test='error']");
+    private final By errorMessage = By.cssSelector("h3[data-test='error']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void open() {
+    public LoginPage open() {
         driver.get(LOGIN_URL);
+        return this;
     }
 
-    public void enterUsername(String username) {
+    public LoginPage enterUsername(String username) {
         driver.findElement(usernameInput).sendKeys(username);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         driver.findElement(passwordInput).sendKeys(password);
+        return this;
     }
 
-    public void clickLogin() {
+    public ProductsPage clickLogin() {
         driver.findElement(loginButton).click();
+        return new ProductsPage(this.driver);
     }
 
-    public void login(String username, String password) {
-        enterUsername(username);
-        enterPassword(password);
-        clickLogin();
+    public ProductsPage login(String username, String password) {
+        return enterUsername(username)
+                .enterPassword(password)
+                .clickLogin();
     }
 
     public String getErrorMessage() {
