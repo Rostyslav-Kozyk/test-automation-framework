@@ -5,7 +5,7 @@ import pages.ProductsPage;
 
 public class ProductsAssertions {
 
-    public static void assertCartItemsCount(ProductsPage productsPage, int expectedCount) {
+    public static void verifyCartItemsCount(ProductsPage productsPage, int expectedCount) {
         var actualCount = productsPage.getCartItemsCount();
         Assert.assertEquals(
                 actualCount,

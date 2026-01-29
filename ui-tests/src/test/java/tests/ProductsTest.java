@@ -13,7 +13,7 @@ public class ProductsTest extends BaseTest {
     private static final String VALID_PRODUCT_NAME = "Sauce Labs Backpack";
 
     @BeforeClass
-    public void setUpProducts() {
+    public void setUpProductsPage() {
         LoginPage loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
 
@@ -27,6 +27,6 @@ public class ProductsTest extends BaseTest {
         productsPage.addProductToCart(VALID_PRODUCT_NAME);
         var expectedNumberOfCartItems = 1;
 
-        ProductsAssertions.assertCartItemsCount(productsPage, expectedNumberOfCartItems);
+        ProductsAssertions.verifyCartItemsCount(productsPage, expectedNumberOfCartItems);
     }
 }

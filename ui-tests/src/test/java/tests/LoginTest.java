@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest {
     private static final String INVALID_PASSWORD = "invalid_password";
 
     @BeforeClass
-    public void setUpLogin() {
+    public void setUpLoginPage() {
         loginPage = new LoginPage(driver);
     }
 
@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
                 .open()
                 .login(VALID_USERNAME, VALID_PASSWORD);
 
-        LoginAssertions.assertLoginSuccessful(driver);
+        LoginAssertions.verifyLoginSuccessful(driver);
     }
 
     @Test
@@ -32,6 +32,6 @@ public class LoginTest extends BaseTest {
                 .open()
                 .login(INVALID_USERNAME, INVALID_PASSWORD);
 
-        LoginAssertions.assertLoginFailed(loginPage.getErrorMessage());
+        LoginAssertions.verifyLoginFailed(loginPage.getErrorMessage());
     }
 }

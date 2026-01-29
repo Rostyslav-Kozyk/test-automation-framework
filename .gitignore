@@ -21,6 +21,7 @@ buildNumber.properties
 
 ### Test Reports ###
 # Allure
+.allure/
 allure-results/
 allure-report/
 
