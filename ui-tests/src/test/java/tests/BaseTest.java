@@ -12,7 +12,7 @@ public class BaseTest {
     protected static final String VALID_USERNAME = "standard_user";
     protected static final String VALID_PASSWORD = "secret_sauce";
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
         boolean headless = Boolean.parseBoolean(
@@ -26,7 +26,7 @@ public class BaseTest {
         }
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void tearDown() {
         if (driver != null) {
             driver.quit();

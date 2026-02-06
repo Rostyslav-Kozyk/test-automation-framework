@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: ReqRes API
+  version: 1.0.0
+
+servers:
+  - url: https://reqres.in/api
+
+components:
+  schemas:
+
+    User:
+      type: object
+      required: [ id, email, first_name, last_name, avatar ]
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        avatar:
+          type: string
+          format: uri
+
+    Support:
+      type: object
+      required: [ url, text ]
+      properties:
+        url:
+          type: string
+          format: uri
+        text:
+          type: string
+
+    Meta:
+      type: object
+      properties:
+        powered_by:
+          type: string
+        docs_url:
+          type: string
+        upgrade_url:
+          type: string
+        example_url:
+          type: string
+        variant:
+          type: string
+        message:
+          type: string
+        context:
+          type: string
+        cta:
+          type: object
+          properties:
+            label:
+              type: string
+            url:
+              type: string
+
+    UsersResponse:
+      type: object
+      required: [ page, per_page, total, total_pages, data, support, _meta ]
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+        total_pages:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        support:
+          $ref: '#/components/schemas/Support'
+        _meta:
+          $ref: '#/components/schemas/Meta'
+
+    SingleUserResponse:
+      type: object
+      required: [ data, support, _meta ]
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+        support:
+          $ref: '#/components/schemas/Support'
+        _meta:
+          $ref: '#/components/schemas/Meta'
+
+paths:
+
+  /users:
+    get:
+      summary: Get users list
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Users list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+
+  /users/{id}:
+    get:
+      summary: Get single user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Single user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleUserResponse'

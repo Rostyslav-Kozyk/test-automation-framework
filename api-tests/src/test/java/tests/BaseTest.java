@@ -1,19 +1,17 @@
 package tests;
 
-import filters.BlankLineFilter;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import org.testng.annotations.BeforeSuite;
+import clients.ClientFactory;
+import clients.UsersClient;
+import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
 
-    @BeforeSuite
+    protected UsersClient usersClient;
+    protected UsersClient usersClientWithSwagger;
+
+    @BeforeClass(alwaysRun = true)
     void setUp() {
-        RestAssured.filters(
-                new BlankLineFilter(),
-                new RequestLoggingFilter(),
-                new ResponseLoggingFilter()
-        );
+        usersClient = ClientFactory.getUsersClient();
+        usersClientWithSwagger = ClientFactory.getUsersClientWithSwagger();
     }
 }
