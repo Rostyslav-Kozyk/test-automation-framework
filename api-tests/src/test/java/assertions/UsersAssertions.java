@@ -2,18 +2,9 @@ package assertions;
 
 import dto.UserResponseDto;
 import dto.UsersResponseDto;
-import io.restassured.response.Response;
 import org.testng.Assert;
 
-public class UsersAssertions {
-
-    public static void verifyStatusCode(Response response, int expectedStatus) {
-        Assert.assertEquals(
-                response.getStatusCode(),
-                expectedStatus,
-                "Unexpected HTTP status code"
-        );
-    }
+public class UsersAssertions extends BaseAssertions {
 
     public static void verifyUsersListNotEmpty(UsersResponseDto response) {
         Assert.assertNotNull(response.getData(), "Users list is null");
@@ -26,6 +17,13 @@ public class UsersAssertions {
                 actualUserId,
                 expectedUserId,
                 "User ID does not match"
+        );
+    }
+
+    public static void verifyEmptyResponseBody(UserResponseDto response) {
+        Assert.assertNull(
+                response.getData(),
+                "Expected empty response body"
         );
     }
 }

@@ -1,6 +1,7 @@
 package tests;
 
 import assertions.ProductsAssertions;
+import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -15,14 +16,14 @@ public class ProductsTest extends BaseTest {
     @BeforeClass
     public void setUpProductsPage() {
         LoginPage loginPage = new LoginPage(driver);
-        productsPage = new ProductsPage(driver);
 
-        loginPage
+        productsPage = loginPage
                 .open()
                 .login(VALID_USERNAME, VALID_PASSWORD);
     }
 
     @Test
+    @Description("Verify adding product to cart")
     public void addProductToCartTest() {
         productsPage.addProductToCart(VALID_PRODUCT_NAME);
         var expectedNumberOfCartItems = 1;
