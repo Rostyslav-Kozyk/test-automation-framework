@@ -1,9 +1,9 @@
 package clients;
 
-import filters.BlankLineFilter;
+import filters.AllureLoggingFilter;
+import filters.PrettyLoggingFilter;
 import io.restassured.filter.Filter;
 import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import validations.SwaggerValidator;
 
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ public class ClientFactory {
 
     private static List<Filter> baseFilters() {
         return List.of(
-                new BlankLineFilter(),
+                new AllureLoggingFilter(),
                 new RequestLoggingFilter(),
-                new ResponseLoggingFilter()
+                new PrettyLoggingFilter()
         );
     }
 

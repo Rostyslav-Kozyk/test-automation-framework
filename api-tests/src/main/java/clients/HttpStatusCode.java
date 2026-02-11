@@ -1,4 +1,4 @@
-package config;
+package clients;
 
 public enum HttpStatusCode {
 

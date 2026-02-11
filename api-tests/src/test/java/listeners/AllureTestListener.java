@@ -2,14 +2,9 @@ package listeners;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.model.Parameter;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import tests.BaseTest;
 
-import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,22 +50,5 @@ public class AllureTestListener implements ITestListener {
             tc.setName(finalName);
             tc.setParameters(finalParams);
         });
-    }
-
-    @Override
-    public void onTestFailure(ITestResult result) {
-        Object testClass = result.getInstance();
-
-        if (testClass instanceof BaseTest baseTest) {
-            WebDriver driver = baseTest.getDriver();
-            if (driver instanceof TakesScreenshot ts) {
-                Allure.addAttachment(
-                        "Screenshot on failure",
-                        "image/png",
-                        new ByteArrayInputStream(ts.getScreenshotAs(OutputType.BYTES)),
-                        ".png"
-                );
-            }
-        }
     }
 }

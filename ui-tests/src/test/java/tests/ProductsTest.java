@@ -22,7 +22,9 @@ public class ProductsTest extends BaseTest {
                 .login(VALID_USERNAME, VALID_PASSWORD);
     }
 
-    @Test
+    @Test(
+            description = "Verify adding product to cart"
+    )
     @Description("Verify adding product to cart")
     public void addProductToCartTest() {
         productsPage.addProductToCart(VALID_PRODUCT_NAME);

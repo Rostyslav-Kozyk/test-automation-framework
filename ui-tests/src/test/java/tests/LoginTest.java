@@ -16,7 +16,9 @@ public class LoginTest extends BaseTest {
         loginPage = new LoginPage(driver);
     }
 
-    @Test
+    @Test(
+            description = "Verify login with valid credentials"
+    )
     @Description("Verify login with valid credentials")
     public void loginWithValidCredentialsTest() {
         loginPage
@@ -26,7 +28,10 @@ public class LoginTest extends BaseTest {
         LoginAssertions.verifyLoginSuccessful(driver);
     }
 
-    @Test(dataProvider = "invalidLoginCredentials")
+    @Test(
+            dataProvider = "invalidLoginCredentials",
+            description = "Verify login with invalid credentials"
+    )
     @Description("Verify login with invalid credentials")
     public void loginWithInvalidCredentialsTest(String invalidUsername, String invalidPassword) {
         loginPage
