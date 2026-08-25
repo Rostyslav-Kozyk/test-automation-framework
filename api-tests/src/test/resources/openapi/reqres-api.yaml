@@ -93,6 +93,36 @@ components:
         _meta:
           $ref: '#/components/schemas/Meta'
 
+    CreateUserRequest:
+      type: object
+      required: [ name, job ]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        job:
+          type: string
+          minLength: 1
+
+    CreateUserResponse:
+      type: object
+      required: [ name, job, id, createdAt, _meta ]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        job:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+        createdAt:
+          type: string
+          format: date-time
+        _meta:
+          $ref: '#/components/schemas/Meta'
+
 paths:
 
   /users:
@@ -111,6 +141,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UsersResponse'
+    post:
+      summary: Create user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
 
   /users/{id}:
     get:

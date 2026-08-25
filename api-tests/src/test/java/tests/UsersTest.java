@@ -3,6 +3,8 @@ package tests;
 import assertions.UsersAssertions;
 import clients.ApiResponse;
 import clients.HttpStatusCode;
+import dto.CreateUserRequestDto;
+import dto.CreateUserResponseDto;
 import dto.UserResponseDto;
 import dto.UsersResponseDto;
 import io.qameta.allure.Description;
@@ -65,6 +67,17 @@ public class UsersTest extends BaseTest {
         UsersAssertions.verifyEmptyResponseBody(response.getBody());
     }
 
+    @Test(description = "Verify user creation")
+    @Description("Verify user creation")
+    public void createUserTest() {
+        CreateUserRequestDto request = validCreateUserRequest();
+
+        ApiResponse<CreateUserResponseDto> response = usersClientWithSwagger.createUser(request);
+
+        UsersAssertions.verifyStatusCode(response.getResponse(), HttpStatusCode.CREATED.getCode());
+        UsersAssertions.verifyCreatedUser(response.getBody(), request);
+    }
+
     @DataProvider(name = "usersPage")
     public Object[][] usersPage() {
         return new Object[][]{
@@ -79,5 +92,12 @@ public class UsersTest extends BaseTest {
                 {9999},
                 {-1}
         };
+    }
+
+    private CreateUserRequestDto validCreateUserRequest() {
+        return CreateUserRequestDto.builder()
+                .name("Rostyslav Kozyk")
+                .job("Test Automation Engineer")
+                .build();
     }
 }

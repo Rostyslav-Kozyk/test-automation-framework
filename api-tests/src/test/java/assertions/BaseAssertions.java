@@ -22,6 +22,10 @@ public abstract class BaseAssertions {
         assertStep(action, () -> Assert.assertNotNull(object, message));
     }
 
+    protected static void assertTrue(boolean condition, String message, String action) {
+        assertStep(action, () -> Assert.assertTrue(condition, message));
+    }
+
     protected static void assertFalse(boolean condition, String message, String action) {
         assertStep(action, () -> Assert.assertFalse(condition, message));
     }

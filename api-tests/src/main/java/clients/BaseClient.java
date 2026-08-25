@@ -51,4 +51,11 @@ public abstract class BaseClient {
                 .when()
                 .get(String.format(url, params)));
     }
+
+    protected Response post(String url, Object body, String action) {
+        return clientStep(action, () -> baseRequest()
+                .body(body)
+                .when()
+                .post(url));
+    }
 }

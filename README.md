@@ -1,6 +1,7 @@
 # Test Automation Portfolio (UI + API)
 
-This repository showcases my skills as a **Test Automation Engineer**, focusing on clean architecture, maintainable code, and industry best practices.
+This repository showcases my skills as a **Test Automation Engineer**, focusing on clean architecture, maintainable
+code, and industry best practices.
 
 The project is split into two independent Maven modules:
 
@@ -96,6 +97,7 @@ mvn allure:serve
 
 * Get users list
 * Get user by ID
+* Create user with request and response DTO validation
 * Negative test cases (404, invalid user)
 * Swagger schema validation
 

@@ -31,9 +31,10 @@ public class AllureLoggingFilter implements Filter {
     }
 
     private void attachRequest(FilterableRequestSpecification request) {
-        String body = request.getBody() == null
+        Object requestBody = request.getBody();
+        String body = requestBody == null
                 ? "<empty>"
-                : String.valueOf(request.getBody());
+                : requestBody.toString();
 
         String requestInfo = """
                 %s %s

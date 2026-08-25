@@ -1,5 +1,7 @@
 package clients;
 
+import dto.CreateUserRequestDto;
+import dto.CreateUserResponseDto;
 import dto.UserResponseDto;
 import dto.UsersResponseDto;
 import io.restassured.filter.Filter;
@@ -35,5 +37,11 @@ public class UsersClient extends BaseClient {
         Response response = get(USER_URL, "Get user by id", userId);
 
         return new ApiResponse<>(response, UserResponseDto.class);
+    }
+
+    public ApiResponse<CreateUserResponseDto> createUser(CreateUserRequestDto request) {
+        Response response = post(USERS_URL, request, "Create user");
+
+        return new ApiResponse<>(response, CreateUserResponseDto.class);
     }
 }

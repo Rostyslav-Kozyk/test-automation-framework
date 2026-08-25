@@ -1,5 +1,7 @@
 package assertions;
 
+import dto.CreateUserRequestDto;
+import dto.CreateUserResponseDto;
 import dto.UserResponseDto;
 import dto.UsersResponseDto;
 
@@ -40,5 +42,19 @@ public class UsersAssertions extends BaseAssertions {
 
     public static void verifyEmptyResponseBody(UserResponseDto response) {
         assertNull(response.getData(), "Expected empty response body", "Verify response body is null");
+    }
+
+    public static void verifyCreatedUser(
+            CreateUserResponseDto response,
+            CreateUserRequestDto request
+    ) {
+        assertEquals(response.getName(), request.getName(), "User name does not match", String.format("Verify created user name = %s", request.getName()));
+        assertEquals(response.getJob(), request.getJob(), "User job does not match", String.format("Verify created user job = %s", request.getJob()));
+        assertTrue(response.getId() != null && !response.getId().isBlank(), "User ID is blank", "Verify created user ID is not blank");
+        assertTrue(
+                response.getCreatedAt() != null && !response.getCreatedAt().isBlank(),
+                "Creation timestamp is blank",
+                "Verify user creation timestamp is not blank"
+        );
     }
 }
