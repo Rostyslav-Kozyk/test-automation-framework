@@ -253,3 +253,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateUserResponse'
+    delete:
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted

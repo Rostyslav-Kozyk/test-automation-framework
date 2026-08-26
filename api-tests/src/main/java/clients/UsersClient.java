@@ -53,4 +53,8 @@ public class UsersClient extends BaseClient {
 
         return new ApiResponse<>(response, UpdateUserResponseDto.class);
     }
+
+    public Response deleteUser(int userId) {
+        return delete(USER_URL, "Delete user", userId);
+    }
 }

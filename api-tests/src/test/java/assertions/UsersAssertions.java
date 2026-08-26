@@ -1,6 +1,7 @@
 package assertions;
 
 import dto.*;
+import io.restassured.response.Response;
 
 public class UsersAssertions extends BaseAssertions {
 
@@ -69,6 +70,14 @@ public class UsersAssertions extends BaseAssertions {
                 response.getUpdatedAt() != null && !response.getUpdatedAt().isBlank(),
                 "Update timestamp is blank",
                 "Verify user update timestamp is not blank"
+        );
+    }
+
+    public static void verifyResponseBodyIsEmpty(Response response) {
+        assertTrue(
+                response.getBody().asString().isEmpty(),
+                "Response body is not empty",
+                "Verify response body is empty"
         );
     }
 }

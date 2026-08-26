@@ -3,13 +3,9 @@ package tests;
 import assertions.UsersAssertions;
 import clients.ApiResponse;
 import clients.HttpStatusCode;
-import dto.CreateUserRequestDto;
-import dto.CreateUserResponseDto;
-import dto.UpdateUserRequestDto;
-import dto.UpdateUserResponseDto;
-import dto.UserResponseDto;
-import dto.UsersResponseDto;
+import dto.*;
 import io.qameta.allure.Description;
+import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -107,6 +103,17 @@ public class UsersTest extends BaseTest {
 
         UsersAssertions.verifyStatusCode(response.getResponse(), HttpStatusCode.OK.getCode());
         UsersAssertions.verifyUpdatedUser(response.getBody(), request);
+    }
+
+    @Test(description = "Verify user deletion")
+    @Description("Verify user deletion")
+    public void deleteUserTest() {
+        var userId = 2;
+
+        Response response = usersClientWithSwagger.deleteUser(userId);
+
+        UsersAssertions.verifyStatusCode(response, HttpStatusCode.NO_CONTENT.getCode());
+        UsersAssertions.verifyResponseBodyIsEmpty(response);
     }
 
     @DataProvider(name = "usersPage")

@@ -72,4 +72,10 @@ public abstract class BaseClient {
                 .when()
                 .patch(String.format(url, params)));
     }
+
+    protected Response delete(String url, String action, Object... params) {
+        return clientStep(action, () -> baseRequest()
+                .when()
+                .delete(String.format(url, params)));
+    }
 }

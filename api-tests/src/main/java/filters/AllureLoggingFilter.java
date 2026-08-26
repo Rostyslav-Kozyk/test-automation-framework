@@ -36,6 +36,13 @@ public class AllureLoggingFilter implements Filter {
                 ? "<empty>"
                 : requestBody.toString();
 
+        String headers = request.getHeaders().asList().stream()
+                .map(header -> header.getName().equalsIgnoreCase("x-api-key")
+                        ? header.getName() + ": <redacted>"
+                        : header.getName() + ": " + header.getValue())
+                .reduce((first, second) -> first + System.lineSeparator() + second)
+                .orElse("<empty>");
+
         String requestInfo = """
                 %s %s
 
@@ -47,7 +54,7 @@ public class AllureLoggingFilter implements Filter {
                 """.formatted(
                 request.getMethod(),
                 request.getURI(),
-                request.getHeaders(),
+                headers,
                 body
         );
 
