@@ -123,6 +123,44 @@ components:
         _meta:
           $ref: '#/components/schemas/Meta'
 
+    ReplaceUserRequest:
+      type: object
+      required: [ name, job ]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        job:
+          type: string
+          minLength: 1
+
+    PatchUserRequest:
+      type: object
+      minProperties: 1
+      properties:
+        name:
+          type: string
+          minLength: 1
+        job:
+          type: string
+          minLength: 1
+
+    UpdateUserResponse:
+      type: object
+      required: [ updatedAt, _meta ]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        job:
+          type: string
+          minLength: 1
+        updatedAt:
+          type: string
+          format: date-time
+        _meta:
+          $ref: '#/components/schemas/Meta'
+
 paths:
 
   /users:
@@ -173,3 +211,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleUserResponse'
+    put:
+      summary: Replace user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserRequest'
+      responses:
+        '200':
+          description: User replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'
+    patch:
+      summary: Partially update user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchUserRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'

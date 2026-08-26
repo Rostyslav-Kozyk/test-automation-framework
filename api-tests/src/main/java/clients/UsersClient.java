@@ -1,9 +1,6 @@
 package clients;
 
-import dto.CreateUserRequestDto;
-import dto.CreateUserResponseDto;
-import dto.UserResponseDto;
-import dto.UsersResponseDto;
+import dto.*;
 import io.restassured.filter.Filter;
 import io.restassured.response.Response;
 
@@ -43,5 +40,17 @@ public class UsersClient extends BaseClient {
         Response response = post(USERS_URL, request, "Create user");
 
         return new ApiResponse<>(response, CreateUserResponseDto.class);
+    }
+
+    public ApiResponse<UpdateUserResponseDto> replaceUser(int userId, UpdateUserRequestDto request) {
+        Response response = put(USER_URL, request, "Replace user", userId);
+
+        return new ApiResponse<>(response, UpdateUserResponseDto.class);
+    }
+
+    public ApiResponse<UpdateUserResponseDto> updateUser(int userId, UpdateUserRequestDto request) {
+        Response response = patch(USER_URL, request, "Update user", userId);
+
+        return new ApiResponse<>(response, UpdateUserResponseDto.class);
     }
 }

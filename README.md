@@ -98,6 +98,7 @@ mvn allure:serve
 * Get users list
 * Get user by ID
 * Create user with request and response DTO validation
+* Replace and partially update users with PUT and PATCH
 * Negative test cases (404, invalid user)
 * Swagger schema validation
 

@@ -1,9 +1,6 @@
 package assertions;
 
-import dto.CreateUserRequestDto;
-import dto.CreateUserResponseDto;
-import dto.UserResponseDto;
-import dto.UsersResponseDto;
+import dto.*;
 
 public class UsersAssertions extends BaseAssertions {
 
@@ -55,6 +52,23 @@ public class UsersAssertions extends BaseAssertions {
                 response.getCreatedAt() != null && !response.getCreatedAt().isBlank(),
                 "Creation timestamp is blank",
                 "Verify user creation timestamp is not blank"
+        );
+    }
+
+    public static void verifyUpdatedUser(
+            UpdateUserResponseDto response,
+            UpdateUserRequestDto request
+    ) {
+        if (request.getName() != null) {
+            assertEquals(response.getName(), request.getName(), "User name does not match", String.format("Verify updated user name = %s", request.getName()));
+        }
+        if (request.getJob() != null) {
+            assertEquals(response.getJob(), request.getJob(), "User job does not match", String.format("Verify updated user job = %s", request.getJob()));
+        }
+        assertTrue(
+                response.getUpdatedAt() != null && !response.getUpdatedAt().isBlank(),
+                "Update timestamp is blank",
+                "Verify user update timestamp is not blank"
         );
     }
 }

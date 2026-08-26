@@ -5,6 +5,8 @@ import clients.ApiResponse;
 import clients.HttpStatusCode;
 import dto.CreateUserRequestDto;
 import dto.CreateUserResponseDto;
+import dto.UpdateUserRequestDto;
+import dto.UpdateUserResponseDto;
 import dto.UserResponseDto;
 import dto.UsersResponseDto;
 import io.qameta.allure.Description;
@@ -76,6 +78,35 @@ public class UsersTest extends BaseTest {
 
         UsersAssertions.verifyStatusCode(response.getResponse(), HttpStatusCode.CREATED.getCode());
         UsersAssertions.verifyCreatedUser(response.getBody(), request);
+    }
+
+    @Test(description = "Verify user replacement")
+    @Description("Verify user replacement")
+    public void replaceUserTest() {
+        var userId = 2;
+        UpdateUserRequestDto request = UpdateUserRequestDto.builder()
+                .name("Rostyslav Kozyk")
+                .job("Senior Test Automation Engineer")
+                .build();
+
+        ApiResponse<UpdateUserResponseDto> response = usersClientWithSwagger.replaceUser(userId, request);
+
+        UsersAssertions.verifyStatusCode(response.getResponse(), HttpStatusCode.OK.getCode());
+        UsersAssertions.verifyUpdatedUser(response.getBody(), request);
+    }
+
+    @Test(description = "Verify partial user update")
+    @Description("Verify partial user update")
+    public void updateUserTest() {
+        var userId = 2;
+        UpdateUserRequestDto request = UpdateUserRequestDto.builder()
+                .job("Lead Test Automation Engineer")
+                .build();
+
+        ApiResponse<UpdateUserResponseDto> response = usersClientWithSwagger.updateUser(userId, request);
+
+        UsersAssertions.verifyStatusCode(response.getResponse(), HttpStatusCode.OK.getCode());
+        UsersAssertions.verifyUpdatedUser(response.getBody(), request);
     }
 
     @DataProvider(name = "usersPage")

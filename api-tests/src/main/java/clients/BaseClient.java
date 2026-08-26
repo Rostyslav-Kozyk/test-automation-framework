@@ -58,4 +58,18 @@ public abstract class BaseClient {
                 .when()
                 .post(url));
     }
+
+    protected Response put(String url, Object body, String action, Object... params) {
+        return clientStep(action, () -> baseRequest()
+                .body(body)
+                .when()
+                .put(String.format(url, params)));
+    }
+
+    protected Response patch(String url, Object body, String action, Object... params) {
+        return clientStep(action, () -> baseRequest()
+                .body(body)
+                .when()
+                .patch(String.format(url, params)));
+    }
 }
