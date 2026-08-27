@@ -9,15 +9,13 @@ import pages.ProductsPage;
 
 public class ProductsTest extends BaseTest {
 
-    private ProductsPage productsPage;
-
     private static final String VALID_PRODUCT_NAME = "Sauce Labs Backpack";
 
-    @BeforeClass
-    public void setUpProductsPage() {
-        LoginPage loginPage = new LoginPage(driver);
+    private ProductsPage productsPage;
 
-        productsPage = loginPage
+    @BeforeClass(alwaysRun = true)
+    public void setUpProductsPage() {
+        productsPage = new LoginPage(driver)
                 .open()
                 .login(VALID_USERNAME, VALID_PASSWORD);
     }

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BasePage {
 
-    private static final String LOGIN_URL = "https://www.saucedemo.com/";
-
     private final By usernameInput = By.id("user-name");
     private final By passwordInput = By.id("password");
     private final By loginButton = By.id("login-button");
@@ -17,7 +15,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage open() {
-        openUrl(LOGIN_URL, "Open Login page");
+        openUrl(BASE_URL, "Open Login page");
         return this;
     }
 

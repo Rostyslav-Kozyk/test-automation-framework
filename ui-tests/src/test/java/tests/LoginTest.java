@@ -3,6 +3,7 @@ package tests;
 import assertions.LoginAssertions;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -11,9 +12,14 @@ public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
 
-    @BeforeClass
-    public void setUpLoginPage() {
+    @BeforeClass(alwaysRun = true)
+    public void setUpLogin() {
         loginPage = new LoginPage(driver);
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void setUpLoginPage() {
+        loginPage.open();
     }
 
     @Test(
@@ -21,9 +27,7 @@ public class LoginTest extends BaseTest {
     )
     @Description("Verify login with valid credentials")
     public void loginWithValidCredentialsTest() {
-        loginPage
-                .open()
-                .login(VALID_USERNAME, VALID_PASSWORD);
+        loginPage.login(VALID_USERNAME, VALID_PASSWORD);
 
         LoginAssertions.verifyLoginSuccessful(driver);
     }
@@ -34,9 +38,7 @@ public class LoginTest extends BaseTest {
     )
     @Description("Verify login with invalid credentials")
     public void loginWithInvalidCredentialsTest(String invalidUsername, String invalidPassword) {
-        loginPage
-                .open()
-                .login(invalidUsername, invalidPassword);
+        loginPage.login(invalidUsername, invalidPassword);
 
         LoginAssertions.verifyLoginFailed(loginPage.getErrorMessage());
     }

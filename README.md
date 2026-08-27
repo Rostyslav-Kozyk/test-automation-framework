@@ -56,7 +56,8 @@ The main goals of this portfolio are to demonstrate:
 
 * Login (positive and negative cases)
 * Add product to cart
-* Basic end-to-end user flow
+* Complete checkout flow with cart, totals, and confirmation validation
+* Required checkout information validation
 
 ### Architecture Highlights
 
@@ -131,7 +132,6 @@ mvn clean test
 
 ## 🚀 Possible Future Improvements
 
-* Checkout flow UI tests
 * API POST/PUT tests with request DTOs
 * Shared Allure reporting for UI and API modules
 * Test data builders
