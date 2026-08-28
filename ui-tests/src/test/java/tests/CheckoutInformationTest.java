@@ -2,6 +2,7 @@ package tests;
 
 import assertions.CheckoutInformationAssertions;
 import io.qameta.allure.Description;
+import models.CheckoutInformation;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -37,7 +38,7 @@ public class CheckoutInformationTest extends BaseTest {
     @Description("Verify checkout information")
     public void checkoutInformationTest() {
         informationPage
-                .fillInformation("Rostyslav", "Kozyk", "10115")
+                .fillInformation(validCheckoutInformation())
                 .continueCheckout();
 
         CheckoutInformationAssertions.verifyProvidingCheckoutInformation(driver);
@@ -49,13 +50,11 @@ public class CheckoutInformationTest extends BaseTest {
     )
     @Description("Verify checkout validation for missing customer information")
     public void requiredCheckoutInformationTest(
-            String firstName,
-            String lastName,
-            String postalCode,
+            CheckoutInformation checkoutInformation,
             String expectedError
     ) {
         informationPage
-                .fillInformation(firstName, lastName, postalCode)
+                .fillInformation(checkoutInformation)
                 .submit();
 
         CheckoutInformationAssertions.verifyCheckoutInformationError(informationPage.getErrorMessage(), expectedError);
@@ -63,10 +62,29 @@ public class CheckoutInformationTest extends BaseTest {
 
     @DataProvider(name = "invalidCheckoutInformation")
     public Object[][] invalidCheckoutInformation() {
+        CheckoutInformation validInformation = validCheckoutInformation();
+
         return new Object[][]{
-                {"", "Kozyk", "10115", "Error: First Name is required"},
-                {"Rostyslav", "", "10115", "Error: Last Name is required"},
-                {"Rostyslav", "Kozyk", "", "Error: Postal Code is required"}
+                {
+                        validInformation.toBuilder().firstName("").build(),
+                        "Error: First Name is required"
+                },
+                {
+                        validInformation.toBuilder().lastName("").build(),
+                        "Error: Last Name is required"
+                },
+                {
+                        validInformation.toBuilder().postalCode("").build(),
+                        "Error: Postal Code is required"
+                }
         };
+    }
+
+    private CheckoutInformation validCheckoutInformation() {
+        return CheckoutInformation.builder()
+                .firstName("Rostyslav")
+                .lastName("Kozyk")
+                .postalCode("10115")
+                .build();
     }
 }

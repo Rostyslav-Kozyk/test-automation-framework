@@ -1,5 +1,6 @@
 package pages;
 
+import models.CheckoutInformation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -34,6 +35,14 @@ public class CheckoutInformationPage extends BasePage {
         return enterFirstName(firstName)
                 .enterLastName(lastName)
                 .enterPostalCode(postalCode);
+    }
+
+    public CheckoutInformationPage fillInformation(CheckoutInformation information) {
+        return fillInformation(
+                information.getFirstName(),
+                information.getLastName(),
+                information.getPostalCode()
+        );
     }
 
     public CheckoutInformationPage submit() {

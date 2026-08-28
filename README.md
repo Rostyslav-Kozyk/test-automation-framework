@@ -66,6 +66,7 @@ The main goals of this portfolio are to demonstrate:
 * Centralized `WebDriverFactory`
 * `BaseTest` with setup and teardown logic
 * Assertions separated from test flow
+* Builder-based checkout test data
 * Allure reporting with screenshots on failure
 
 ### Run UI Tests
@@ -159,7 +160,6 @@ The TestNG suite names distinguish `API Tests Suite` and `UI Tests Suite` inside
 
 ## 🚀 Possible Future Improvements
 
-* Test data builders
 * Docker and CI integration
 
 ---

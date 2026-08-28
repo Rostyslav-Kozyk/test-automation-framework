@@ -2,9 +2,13 @@ package tests;
 
 import assertions.CheckoutAssertions;
 import io.qameta.allure.Description;
+import models.CheckoutInformation;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.CheckoutCompletePage;
+import pages.CheckoutOverviewPage;
+import pages.LoginPage;
+import pages.ProductsPage;
 
 public class CheckoutTest extends BaseTest {
 
@@ -26,11 +30,17 @@ public class CheckoutTest extends BaseTest {
     @Test(description = "Verify successful checkout")
     @Description("Verify successful end-to-end checkout")
     public void successfulCheckoutTest() {
+        CheckoutInformation checkoutInformation = CheckoutInformation.builder()
+                .firstName("Rostyslav")
+                .lastName("Kozyk")
+                .postalCode("10115")
+                .build();
+
         CheckoutOverviewPage overviewPage = productsPage
                 .addProductToCart(PRODUCT_NAME)
                 .openCart()
                 .checkout()
-                .fillInformation("Rostyslav", "Kozyk", "10115")
+                .fillInformation(checkoutInformation)
                 .continueCheckout();
 
         CheckoutAssertions.verifyOrderOverview(
