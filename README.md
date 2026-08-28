@@ -153,6 +153,7 @@ The TestNG suite names distinguish `API Tests Suite` and `UI Tests Suite` inside
 
 * Separation of concerns (tests, pages/clients, assertions)
 * Reusability and scalability
+* Centralized dependency and plugin versions in the parent Maven configuration
 * Clean, readable, and interview-friendly code
 * CI/CD-ready project structure
 
