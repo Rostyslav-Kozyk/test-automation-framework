@@ -1,5 +1,6 @@
 package tests;
 
+import config.UiConfig;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,10 +15,8 @@ public class BaseTest {
 
     @BeforeClass(alwaysRun = true)
     public void setUp() {
-        String browser = System.getProperty("browser", "chrome");
-        boolean headless = Boolean.parseBoolean(
-                System.getProperty("headless", "false")
-        );
+        String browser = UiConfig.getBrowser();
+        boolean headless = UiConfig.isHeadless();
 
         driver = WebDriverFactory.createDriver(browser, headless);
 

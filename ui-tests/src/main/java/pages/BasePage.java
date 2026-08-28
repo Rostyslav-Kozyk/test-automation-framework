@@ -1,5 +1,6 @@
 package pages;
 
+import config.UiConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,19 +8,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import steps.StepExecutor;
 
-import java.time.Duration;
 import java.util.function.Supplier;
 
 public abstract class BasePage {
 
-    protected static final String BASE_URL = "https://www.saucedemo.com";
+    protected static final String BASE_URL = UiConfig.getBaseUrl();
 
     protected final WebDriver driver;
     private final WebDriverWait wait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, UiConfig.getTimeout());
     }
 
     private static void pageStep(String name, Runnable pageAction) {

@@ -82,6 +82,12 @@ Run tests with browser configuration:
 mvn test -Dbrowser=firefox -Dheadless=true
 ```
 
+Override the UI environment and explicit-wait timeout when needed:
+
+```bash
+mvn test -Dui.base.url=https://www.saucedemo.com -Dui.timeout.seconds=15
+```
+
 Generate Allure report:
 
 ```bash
@@ -119,6 +125,13 @@ mvn allure:serve
 ```bash
 cd api-tests
 mvn clean test
+```
+
+Select a configured API environment or provide a custom base URL:
+
+```bash
+mvn test -Denv=PROD
+mvn test -Dapi.base.url=https://reqres.in/api
 ```
 
 ---
