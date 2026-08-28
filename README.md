@@ -3,7 +3,7 @@
 This repository showcases my skills as a **Test Automation Engineer**, focusing on clean architecture, maintainable
 code, and industry best practices.
 
-The project is split into two independent Maven modules:
+The project is split into two Maven modules that can be run independently or together:
 
 * **UI Test Automation** (Selenium)
 * **API Test Automation** (REST Assured)
@@ -41,6 +41,7 @@ The main goals of this portfolio are to demonstrate:
 ```
 ├── ui-tests/     # UI test automation (Selenium)
 ├── api-tests/    # API test automation (REST Assured)
+├── pom.xml       # Maven aggregator and shared Allure report
 └── README.md
 ```
 
@@ -121,6 +122,32 @@ mvn clean test
 
 ---
 
+## 📊 Shared UI and API Allure Report
+
+Run both test modules from the repository root. Their results are collected in one directory:
+
+```bash
+mvn clean test
+```
+
+Generate the combined report:
+
+```bash
+mvn -N allure:report
+```
+
+The generated report is available in `target/allure-report`.
+
+To generate and open the report in a local browser:
+
+```bash
+mvn -N allure:serve
+```
+
+The TestNG suite names distinguish `API Tests Suite` and `UI Tests Suite` inside Allure.
+
+---
+
 ## 🧠 Design Principles Used
 
 * Separation of concerns (tests, pages/clients, assertions)
@@ -132,8 +159,6 @@ mvn clean test
 
 ## 🚀 Possible Future Improvements
 
-* API POST/PUT tests with request DTOs
-* Shared Allure reporting for UI and API modules
 * Test data builders
 * Docker and CI integration
 

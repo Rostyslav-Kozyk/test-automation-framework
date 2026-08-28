@@ -4,7 +4,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.integralsociety</groupId>
+    <parent>
+        <groupId>org.integralsociety</groupId>
+        <artifactId>test-automation-framework</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
     <artifactId>ui-tests</artifactId>
     <version>1.0</version>
 
@@ -14,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Allure -->
-        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        <allure.results.directory>${maven.multiModuleProjectDirectory}/target/allure-results</allure.results.directory>
     </properties>
 
     <dependencies>
