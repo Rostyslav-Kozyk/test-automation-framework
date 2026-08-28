@@ -67,7 +67,7 @@ The main goals of this portfolio are to demonstrate:
 * `BaseTest` with setup and teardown logic
 * Assertions separated from test flow
 * Builder-based checkout test data
-* Allure reporting with screenshots on failure
+* Allure reporting with screenshots, current URLs, and page sources on UI failures
 
 ### Run UI Tests
 

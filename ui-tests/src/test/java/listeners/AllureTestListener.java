@@ -63,14 +63,41 @@ public class AllureTestListener implements ITestListener {
 
         if (testClass instanceof BaseTest baseTest) {
             WebDriver driver = baseTest.getDriver();
-            if (driver instanceof TakesScreenshot ts) {
-                Allure.addAttachment(
-                        "Screenshot on failure",
-                        "image/png",
-                        new ByteArrayInputStream(ts.getScreenshotAs(OutputType.BYTES)),
-                        ".png"
-                );
+            if (driver != null) {
+                attachFailureEvidence(driver);
             }
+        }
+    }
+
+    private void attachFailureEvidence(WebDriver driver) {
+        safelyAttach(() -> Allure.addAttachment(
+                "Current URL",
+                "text/plain",
+                driver.getCurrentUrl()
+        ));
+
+        safelyAttach(() -> Allure.addAttachment(
+                "Page source",
+                "text/html",
+                driver.getPageSource(),
+                ".html"
+        ));
+
+        if (driver instanceof TakesScreenshot screenshotDriver) {
+            safelyAttach(() -> Allure.addAttachment(
+                    "Screenshot on failure",
+                    "image/png",
+                    new ByteArrayInputStream(screenshotDriver.getScreenshotAs(OutputType.BYTES)),
+                    ".png"
+            ));
+        }
+    }
+
+    private void safelyAttach(Runnable attachment) {
+        try {
+            attachment.run();
+        } catch (RuntimeException ignored) {
+            // Failure evidence must never replace the original test failure.
         }
     }
 }
