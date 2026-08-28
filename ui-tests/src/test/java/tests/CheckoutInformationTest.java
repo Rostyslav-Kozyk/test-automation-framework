@@ -34,7 +34,7 @@ public class CheckoutInformationTest extends BaseTest {
                 .checkout();
     }
 
-    @Test(description = "Verify checkout information")
+    @Test(groups = {"ui", "regression"}, description = "Verify checkout information")
     @Description("Verify checkout information")
     public void checkoutInformationTest() {
         informationPage
@@ -45,6 +45,7 @@ public class CheckoutInformationTest extends BaseTest {
     }
 
     @Test(
+            groups = {"ui", "regression"},
             dataProvider = "invalidCheckoutInformation",
             description = "Verify required checkout information"
     )

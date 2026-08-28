@@ -32,7 +32,7 @@ public class CartTest extends BaseTest {
                 .addProductToCart(PRODUCT_NAME);
     }
 
-    @Test(description = "Verify cart product")
+    @Test(groups = {"ui", "regression"}, description = "Verify cart product")
     @Description("Verify cart product")
     public void cartProductTest() {
         cartPage = productsPage.openCart();
@@ -40,7 +40,7 @@ public class CartTest extends BaseTest {
         CartAssertions.verifyCartProduct(cartPage, PRODUCT_NAME, PRODUCT_PRICE);
     }
 
-    @Test(description = "Verify product removal")
+    @Test(groups = {"ui", "regression"}, description = "Verify product removal")
     @Description("Verify product removal")
     public void cartProductRemovalTest() {
         cartPage = productsPage.openCart();

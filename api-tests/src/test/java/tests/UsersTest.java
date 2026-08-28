@@ -14,6 +14,7 @@ public class UsersTest extends BaseTest {
     private final int EXPECTED_USERS_PER_PAGE = 6;
 
     @Test(
+            groups = {"api", "regression", "smoke"},
             description = "Verify users retrieval"
     )
     @Description("Verify users retrieval")
@@ -28,6 +29,7 @@ public class UsersTest extends BaseTest {
     }
 
     @Test(
+            groups = {"api", "regression"},
             dataProvider = "usersPage",
             description = "Verify retrieval of users by page"
     )
@@ -41,6 +43,7 @@ public class UsersTest extends BaseTest {
     }
 
     @Test(
+            groups = {"api", "regression"},
             description = "Verify retrieval of single user"
     )
     @Description("Verify retrieval of single user")
@@ -54,6 +57,7 @@ public class UsersTest extends BaseTest {
     }
 
     @Test(
+            groups = {"api", "regression"},
             dataProvider = "invalidUserIds",
             description = "Verify retrieval of single user with invalid user id"
     )
@@ -65,7 +69,7 @@ public class UsersTest extends BaseTest {
         UsersAssertions.verifyEmptyResponseBody(response.getBody());
     }
 
-    @Test(description = "Verify user creation")
+    @Test(groups = {"api", "regression"}, description = "Verify user creation")
     @Description("Verify user creation")
     public void createUserTest() {
         CreateUserRequestDto request = validCreateUserRequest();
@@ -76,7 +80,7 @@ public class UsersTest extends BaseTest {
         UsersAssertions.verifyCreatedUser(response.getBody(), request);
     }
 
-    @Test(description = "Verify user replacement")
+    @Test(groups = {"api", "regression"}, description = "Verify user replacement")
     @Description("Verify user replacement")
     public void replaceUserTest() {
         var userId = 2;
@@ -91,7 +95,7 @@ public class UsersTest extends BaseTest {
         UsersAssertions.verifyUpdatedUser(response.getBody(), request);
     }
 
-    @Test(description = "Verify partial user update")
+    @Test(groups = {"api", "regression"}, description = "Verify partial user update")
     @Description("Verify partial user update")
     public void updateUserTest() {
         var userId = 2;
@@ -105,7 +109,7 @@ public class UsersTest extends BaseTest {
         UsersAssertions.verifyUpdatedUser(response.getBody(), request);
     }
 
-    @Test(description = "Verify user deletion")
+    @Test(groups = {"api", "regression"}, description = "Verify user deletion")
     @Description("Verify user deletion")
     public void deleteUserTest() {
         var userId = 2;

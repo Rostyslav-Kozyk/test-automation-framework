@@ -23,6 +23,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(
+            groups = {"ui", "regression", "smoke"},
             description = "Verify login with valid credentials"
     )
     @Description("Verify login with valid credentials")
@@ -33,6 +34,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(
+            groups = {"ui", "regression"},
             dataProvider = "invalidLoginCredentials",
             description = "Verify login with invalid credentials"
     )

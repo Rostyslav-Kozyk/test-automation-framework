@@ -88,6 +88,13 @@ Override the UI environment and explicit-wait timeout when needed:
 mvn test -Dui.base.url=https://www.saucedemo.com -Dui.timeout.seconds=15
 ```
 
+Run a specific UI test group:
+
+```bash
+mvn test -Dgroups=smoke
+mvn test -Dgroups=regression
+```
+
 Generate Allure report:
 
 ```bash
@@ -134,6 +141,13 @@ mvn test -Denv=PROD
 mvn test -Dapi.base.url=https://reqres.in/api
 ```
 
+Run a specific API test group:
+
+```bash
+mvn test -Dgroups=smoke
+mvn test -Dgroups=regression
+```
+
 ---
 
 ## 📊 Shared UI and API Allure Report
@@ -167,6 +181,7 @@ The TestNG suite names distinguish `API Tests Suite` and `UI Tests Suite` inside
 * Separation of concerns (tests, pages/clients, assertions)
 * Reusability and scalability
 * Centralized dependency and plugin versions in the parent Maven configuration
+* TestNG groups for smoke, regression, API, and UI test selection
 * Clean, readable, and interview-friendly code
 * CI/CD-ready project structure
 

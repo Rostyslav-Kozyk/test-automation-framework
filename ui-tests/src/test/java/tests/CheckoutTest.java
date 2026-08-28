@@ -27,7 +27,7 @@ public class CheckoutTest extends BaseTest {
                 .login(VALID_USERNAME, VALID_PASSWORD);
     }
 
-    @Test(description = "Verify successful checkout")
+    @Test(groups = {"ui", "regression", "smoke"}, description = "Verify successful checkout")
     @Description("Verify successful end-to-end checkout")
     public void successfulCheckoutTest() {
         CheckoutInformation checkoutInformation = CheckoutInformation.builder()

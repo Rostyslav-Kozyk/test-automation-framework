@@ -21,6 +21,7 @@ public class ProductsTest extends BaseTest {
     }
 
     @Test(
+            groups = {"ui", "regression"},
             description = "Verify adding product to cart"
     )
     @Description("Verify adding product to cart")
