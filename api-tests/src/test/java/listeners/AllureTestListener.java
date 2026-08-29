@@ -1,6 +1,6 @@
 package listeners;
 
-import config.RequestSpecFactory;
+import config.ApiConfig;
 import io.qameta.allure.Allure;
 import io.qameta.allure.model.Parameter;
 import org.testng.IExecutionListener;
@@ -23,8 +23,8 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
     @Override
     public void onExecutionStart() {
         Properties environment = new Properties();
-        environment.setProperty("API environment", System.getProperty("env", "PROD").toUpperCase());
-        environment.setProperty("API base URL", RequestSpecFactory.getBaseUrl());
+        environment.setProperty("API environment", ApiConfig.getEnvironment().name());
+        environment.setProperty("API base URL", ApiConfig.getBaseUrl());
         environment.setProperty("Java version", System.getProperty("java.version"));
         environment.setProperty("Operating system", System.getProperty("os.name"));
 

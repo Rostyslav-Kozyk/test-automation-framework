@@ -184,6 +184,7 @@ Java version, and operating system. Secrets such as `API_KEY` are never included
 
 * Separation of concerns (tests, pages/clients, assertions)
 * Reusability and scalability
+* Consistent, centralized runtime configuration for API and UI modules
 * Centralized dependency and plugin versions in the parent Maven configuration
 * TestNG groups for smoke, regression, API, and UI test selection
 * Clean, readable, and interview-friendly code
