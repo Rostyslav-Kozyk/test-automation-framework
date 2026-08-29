@@ -10,9 +10,6 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-    protected static final String VALID_USERNAME = "standard_user";
-    protected static final String VALID_PASSWORD = "secret_sauce";
-
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         String browser = UiConfig.getBrowser();

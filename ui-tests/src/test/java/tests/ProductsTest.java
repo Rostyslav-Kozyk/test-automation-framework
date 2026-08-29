@@ -6,18 +6,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
+import testdata.Credentials;
+import testdata.ProductData;
+import testdata.UiTestDataFactory;
 
 public class ProductsTest extends BaseTest {
-
-    private static final String VALID_PRODUCT_NAME = "Sauce Labs Backpack";
 
     private ProductsPage productsPage;
 
     @BeforeClass(alwaysRun = true)
     public void setUpProductsPage() {
+        Credentials credentials = UiTestDataFactory.validCredentials();
         productsPage = new LoginPage(driver)
                 .open()
-                .login(VALID_USERNAME, VALID_PASSWORD);
+                .login(credentials.username(), credentials.password());
     }
 
     @Test(
@@ -26,7 +28,8 @@ public class ProductsTest extends BaseTest {
     )
     @Description("Verify adding product to cart")
     public void addProductToCartTest() {
-        productsPage.addProductToCart(VALID_PRODUCT_NAME);
+        ProductData product = UiTestDataFactory.backpack();
+        productsPage.addProductToCart(product.name());
         var expectedNumberOfCartItems = 1;
 
         ProductsAssertions.verifyCartItemsCount(productsPage, expectedNumberOfCartItems);

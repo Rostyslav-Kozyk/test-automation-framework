@@ -10,20 +10,24 @@ import org.testng.annotations.Test;
 import pages.CheckoutInformationPage;
 import pages.LoginPage;
 import pages.ProductsPage;
+import testdata.CheckoutValidationCase;
+import testdata.Credentials;
+import testdata.ProductData;
+import testdata.UiTestDataFactory;
 
 public class CheckoutInformationTest extends BaseTest {
 
-    private static final String PRODUCT_NAME = "Sauce Labs Backpack";
-
+    private final ProductData product = UiTestDataFactory.backpack();
     private ProductsPage productsPage;
     private CheckoutInformationPage informationPage;
 
     @BeforeClass(alwaysRun = true)
     public void setUpProduct() {
+        Credentials credentials = UiTestDataFactory.validCredentials();
         productsPage = new LoginPage(driver)
                 .open()
-                .login(VALID_USERNAME, VALID_PASSWORD)
-                .addProductToCart(PRODUCT_NAME);
+                .login(credentials.username(), credentials.password())
+                .addProductToCart(product.name());
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -38,7 +42,7 @@ public class CheckoutInformationTest extends BaseTest {
     @Description("Verify checkout information")
     public void checkoutInformationTest() {
         informationPage
-                .fillInformation(validCheckoutInformation())
+                .fillInformation(UiTestDataFactory.validCheckoutInformation())
                 .continueCheckout();
 
         CheckoutInformationAssertions.verifyProvidingCheckoutInformation(driver);
@@ -63,29 +67,12 @@ public class CheckoutInformationTest extends BaseTest {
 
     @DataProvider(name = "invalidCheckoutInformation")
     public Object[][] invalidCheckoutInformation() {
-        CheckoutInformation validInformation = validCheckoutInformation();
-
-        return new Object[][]{
-                {
-                        validInformation.toBuilder().firstName("").build(),
-                        "Error: First Name is required"
-                },
-                {
-                        validInformation.toBuilder().lastName("").build(),
-                        "Error: Last Name is required"
-                },
-                {
-                        validInformation.toBuilder().postalCode("").build(),
-                        "Error: Postal Code is required"
-                }
-        };
+        return UiTestDataFactory.invalidCheckoutInformation().stream()
+                .map(this::toDataProviderRow)
+                .toArray(Object[][]::new);
     }
 
-    private CheckoutInformation validCheckoutInformation() {
-        return CheckoutInformation.builder()
-                .firstName("Rostyslav")
-                .lastName("Kozyk")
-                .postalCode("10115")
-                .build();
+    private Object[] toDataProviderRow(CheckoutValidationCase validationCase) {
+        return new Object[]{validationCase.information(), validationCase.expectedError()};
     }
 }

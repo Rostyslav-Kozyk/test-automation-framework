@@ -8,6 +8,7 @@ import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import testdata.ApiTestDataFactory;
 
 public class UsersTest extends BaseTest {
 
@@ -72,7 +73,7 @@ public class UsersTest extends BaseTest {
     @Test(groups = {"api", "regression"}, description = "Verify user creation")
     @Description("Verify user creation")
     public void createUserTest() {
-        CreateUserRequestDto request = validCreateUserRequest();
+        CreateUserRequestDto request = ApiTestDataFactory.createUserRequest();
 
         ApiResponse<CreateUserResponseDto> response = usersClientWithSwagger.createUser(request);
 
@@ -84,10 +85,7 @@ public class UsersTest extends BaseTest {
     @Description("Verify user replacement")
     public void replaceUserTest() {
         var userId = 2;
-        UpdateUserRequestDto request = UpdateUserRequestDto.builder()
-                .name("Rostyslav Kozyk")
-                .job("Senior Test Automation Engineer")
-                .build();
+        UpdateUserRequestDto request = ApiTestDataFactory.replaceUserRequest();
 
         ApiResponse<UpdateUserResponseDto> response = usersClientWithSwagger.replaceUser(userId, request);
 
@@ -99,9 +97,7 @@ public class UsersTest extends BaseTest {
     @Description("Verify partial user update")
     public void updateUserTest() {
         var userId = 2;
-        UpdateUserRequestDto request = UpdateUserRequestDto.builder()
-                .job("Lead Test Automation Engineer")
-                .build();
+        UpdateUserRequestDto request = ApiTestDataFactory.updateUserRequest();
 
         ApiResponse<UpdateUserResponseDto> response = usersClientWithSwagger.updateUser(userId, request);
 
@@ -122,24 +118,11 @@ public class UsersTest extends BaseTest {
 
     @DataProvider(name = "usersPage")
     public Object[][] usersPage() {
-        return new Object[][]{
-                {1},
-                {2}
-        };
+        return ApiTestDataFactory.userPages();
     }
 
     @DataProvider(name = "invalidUserIds")
     public Object[][] invalidUserIds() {
-        return new Object[][]{
-                {9999},
-                {-1}
-        };
-    }
-
-    private CreateUserRequestDto validCreateUserRequest() {
-        return CreateUserRequestDto.builder()
-                .name("Rostyslav Kozyk")
-                .job("Test Automation Engineer")
-                .build();
+        return ApiTestDataFactory.invalidUserIds();
     }
 }

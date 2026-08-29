@@ -2,54 +2,46 @@ package tests;
 
 import assertions.CheckoutAssertions;
 import io.qameta.allure.Description;
-import models.CheckoutInformation;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.CheckoutCompletePage;
 import pages.CheckoutOverviewPage;
 import pages.LoginPage;
 import pages.ProductsPage;
+import testdata.Credentials;
+import testdata.ProductData;
+import testdata.UiTestDataFactory;
 
 public class CheckoutTest extends BaseTest {
 
-    private static final String PRODUCT_NAME = "Sauce Labs Backpack";
-    private static final String PRODUCT_PRICE = "$29.99";
-    private static final String ITEM_TOTAL = "Item total: $29.99";
-    private static final String TAX = "Tax: $2.40";
-    private static final String ORDER_TOTAL = "Total: $32.39";
-
+    private final ProductData product = UiTestDataFactory.backpack();
     private ProductsPage productsPage;
 
     @BeforeClass(alwaysRun = true)
     public void setUpProductsPage() {
+        Credentials credentials = UiTestDataFactory.validCredentials();
         productsPage = new LoginPage(driver)
                 .open()
-                .login(VALID_USERNAME, VALID_PASSWORD);
+                .login(credentials.username(), credentials.password());
     }
 
     @Test(groups = {"ui", "regression", "smoke"}, description = "Verify successful checkout")
     @Description("Verify successful end-to-end checkout")
     public void successfulCheckoutTest() {
-        CheckoutInformation checkoutInformation = CheckoutInformation.builder()
-                .firstName("Rostyslav")
-                .lastName("Kozyk")
-                .postalCode("10115")
-                .build();
-
         CheckoutOverviewPage overviewPage = productsPage
-                .addProductToCart(PRODUCT_NAME)
+                .addProductToCart(product.name())
                 .openCart()
                 .checkout()
-                .fillInformation(checkoutInformation)
+                .fillInformation(UiTestDataFactory.validCheckoutInformation())
                 .continueCheckout();
 
         CheckoutAssertions.verifyOrderOverview(
                 overviewPage,
-                PRODUCT_NAME,
-                PRODUCT_PRICE,
-                ITEM_TOTAL,
-                TAX,
-                ORDER_TOTAL
+                product.name(),
+                product.price(),
+                product.itemTotal(),
+                product.tax(),
+                product.orderTotal()
         );
 
         CheckoutCompletePage completePage = overviewPage.finish();

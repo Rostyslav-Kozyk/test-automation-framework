@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import testdata.Credentials;
+import testdata.UiTestDataFactory;
 
 public class LoginTest extends BaseTest {
 
@@ -28,7 +30,8 @@ public class LoginTest extends BaseTest {
     )
     @Description("Verify login with valid credentials")
     public void loginWithValidCredentialsTest() {
-        loginPage.login(VALID_USERNAME, VALID_PASSWORD);
+        Credentials credentials = UiTestDataFactory.validCredentials();
+        loginPage.login(credentials.username(), credentials.password());
 
         LoginAssertions.verifyLoginSuccessful(driver);
     }
@@ -47,9 +50,8 @@ public class LoginTest extends BaseTest {
 
     @DataProvider(name = "invalidLoginCredentials")
     public Object[][] invalidLoginCredentials() {
-        return new Object[][]{
-                {"invalid_user", "invalid_password"},
-                {"invalid_user!@#$%^&*", "invalid_password!@#$%^&*"}
-        };
+        return UiTestDataFactory.invalidCredentials().stream()
+                .map(credentials -> new Object[]{credentials.username(), credentials.password()})
+                .toArray(Object[][]::new);
     }
 }
