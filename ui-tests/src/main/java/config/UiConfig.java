@@ -1,10 +1,10 @@
 package config;
 
 import java.time.Duration;
+import java.util.Locale;
 
 public final class UiConfig {
 
-    private static final String DEFAULT_BASE_URL = "https://www.saucedemo.com";
     private static final String DEFAULT_BROWSER = "chrome";
     private static final int DEFAULT_TIMEOUT_SECONDS = 10;
 
@@ -12,8 +12,28 @@ public final class UiConfig {
     }
 
     public static String getBaseUrl() {
-        String baseUrl = System.getProperty("ui.base.url", DEFAULT_BASE_URL).trim();
-        return baseUrl.replaceAll("/+$", "");
+        String customBaseUrl = System.getProperty("ui.base.url");
+        if (customBaseUrl != null && !customBaseUrl.isBlank()) {
+            return customBaseUrl.trim().replaceAll("/+$", "");
+        }
+
+        return getEnvironment().getBaseUrl();
+    }
+
+    public static Environment getEnvironment() {
+        String environmentName = System.getProperty("env", "PROD")
+                .trim()
+                .toUpperCase(Locale.ROOT);
+
+        try {
+            return Environment.valueOf(environmentName);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(
+                    "Unsupported UI environment '" + environmentName +
+                            "'. Supported values: DEV, QA, PROD",
+                    exception
+            );
+        }
     }
 
     public static String getBrowser() {

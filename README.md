@@ -82,9 +82,11 @@ Run tests with browser configuration:
 mvn test -Dbrowser=firefox -Dheadless=true
 ```
 
-Override the UI environment and explicit-wait timeout when needed:
+Select a UI environment or provide a custom base URL and explicit-wait timeout:
 
 ```bash
+mvn test -Denv=PROD
+mvn test -Denv=QA
 mvn test -Dui.base.url=https://www.saucedemo.com -Dui.timeout.seconds=15
 ```
 

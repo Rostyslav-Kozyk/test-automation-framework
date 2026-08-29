@@ -28,6 +28,7 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
     @Override
     public void onExecutionStart() {
         Properties environment = new Properties();
+        environment.setProperty("UI environment", UiConfig.getEnvironment().name());
         environment.setProperty("UI base URL", UiConfig.getBaseUrl());
         environment.setProperty("Browser", UiConfig.getBrowser());
         environment.setProperty("Headless", String.valueOf(UiConfig.isHeadless()));
