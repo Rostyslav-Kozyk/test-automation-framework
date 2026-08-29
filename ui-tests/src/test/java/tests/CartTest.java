@@ -22,7 +22,7 @@ public class CartTest extends BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUpProductsPage() {
         Credentials credentials = UiTestDataFactory.validCredentials();
-        productsPage = new LoginPage(driver)
+        productsPage = new LoginPage(getDriver())
                 .open()
                 .login(credentials.username(), credentials.password());
     }

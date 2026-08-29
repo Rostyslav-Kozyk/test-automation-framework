@@ -4,32 +4,29 @@ import config.UiConfig;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import utils.DriverManager;
 import utils.WebDriverFactory;
 
 public class BaseTest {
-
-    protected WebDriver driver;
 
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         String browser = UiConfig.getBrowser();
         boolean headless = UiConfig.isHeadless();
 
-        driver = WebDriverFactory.createDriver(browser, headless);
+        DriverManager.setDriver(WebDriverFactory.createDriver(browser, headless));
 
         if (!headless) {
-            driver.manage().window().maximize();
+            getDriver().manage().window().maximize();
         }
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.quitDriver();
     }
 
     public WebDriver getDriver() {
-        return driver;
+        return DriverManager.getDriver();
     }
 }

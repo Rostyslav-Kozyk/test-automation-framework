@@ -24,7 +24,7 @@ public class CheckoutInformationTest extends BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUpProduct() {
         Credentials credentials = UiTestDataFactory.validCredentials();
-        productsPage = new LoginPage(driver)
+        productsPage = new LoginPage(getDriver())
                 .open()
                 .login(credentials.username(), credentials.password())
                 .addProductToCart(product.name());
@@ -45,7 +45,7 @@ public class CheckoutInformationTest extends BaseTest {
                 .fillInformation(UiTestDataFactory.validCheckoutInformation())
                 .continueCheckout();
 
-        CheckoutInformationAssertions.verifyProvidingCheckoutInformation(driver);
+        CheckoutInformationAssertions.verifyProvidingCheckoutInformation(getDriver());
     }
 
     @Test(

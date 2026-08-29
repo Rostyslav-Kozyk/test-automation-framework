@@ -82,6 +82,12 @@ Run tests with browser configuration:
 mvn test -Dbrowser=firefox -Dheadless=true
 ```
 
+UI test classes run in parallel with three threads by default. Override the thread count when needed:
+
+```bash
+mvn test -Dheadless=true -Dui.thread.count=4
+```
+
 Select a UI environment or provide a custom base URL and explicit-wait timeout:
 
 ```bash

@@ -16,7 +16,7 @@ public class LoginTest extends BaseTest {
 
     @BeforeClass(alwaysRun = true)
     public void setUpLogin() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -33,7 +33,7 @@ public class LoginTest extends BaseTest {
         Credentials credentials = UiTestDataFactory.validCredentials();
         loginPage.login(credentials.username(), credentials.password());
 
-        LoginAssertions.verifyLoginSuccessful(driver);
+        LoginAssertions.verifyLoginSuccessful(getDriver());
     }
 
     @Test(
