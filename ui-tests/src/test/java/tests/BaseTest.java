@@ -14,7 +14,11 @@ public class BaseTest {
         String browser = UiConfig.getBrowser();
         boolean headless = UiConfig.isHeadless();
 
-        DriverManager.setDriver(WebDriverFactory.createDriver(browser, headless));
+        DriverManager.setDriver(WebDriverFactory.createDriver(
+                browser,
+                headless,
+                UiConfig.getRemoteUrl()
+        ));
 
         if (!headless) {
             getDriver().manage().window().maximize();

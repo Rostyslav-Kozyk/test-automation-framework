@@ -26,6 +26,7 @@ The main goals of this portfolio are to demonstrate:
 * Maven
 * Allure Reporting
 * WebDriverManager
+* Docker Compose
 
 ### API Automation
 
@@ -80,6 +81,12 @@ Run tests with browser configuration:
 
 ```bash
 mvn test -Dbrowser=firefox -Dheadless=true
+```
+
+Run against an existing Selenium Grid instead of a locally installed browser:
+
+```bash
+mvn test -Dremote.url=http://localhost:4444/wd/hub -Dbrowser=chrome -Dheadless=true
 ```
 
 UI test classes run in parallel with three threads by default. Override the thread count when needed:
@@ -199,6 +206,25 @@ Java version, and operating system. Secrets such as `API_KEY` are never included
 
 ---
 
+## 🐳 Reproducible Docker Execution
+
+The Docker setup runs Maven with Java 17 and executes the parallel UI tests against a dedicated,
+headless Selenium Chrome container. API and UI tests still write their shared Allure results to
+the host's `target/allure-results` directory.
+
+Set the API key only for the current shell session and start the complete quality gate:
+
+```powershell
+$env:API_KEY = "your-api-key"
+docker compose up --abort-on-container-exit --exit-code-from tests
+docker compose down
+```
+
+The key is passed to the test container at runtime. It is not stored in the Compose file, image,
+source code, or Allure environment data.
+
+---
+
 ## 🧠 Design Principles Used
 
 * Separation of concerns (tests, pages/clients, assertions)
@@ -214,7 +240,7 @@ Java version, and operating system. Secrets such as `API_KEY` are never included
 
 ## 🚀 Possible Future Improvements
 
-* Docker and Jenkins integration
+* Jenkins integration
 
 ---
 

@@ -1,0 +1,33 @@
+services:
+  selenium:
+    image: selenium/standalone-chrome:4.46.0-20260707
+    shm_size: 2gb
+    environment:
+      SE_NODE_MAX_SESSIONS: 3
+      SE_NODE_OVERRIDE_MAX_SESSIONS: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:4444/wd/hub/status" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  tests:
+    image: maven:3.9.16-eclipse-temurin-17
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven-repository:/root/.m2
+    environment:
+      API_KEY: ${API_KEY:?Set API_KEY before running Docker tests}
+    depends_on:
+      selenium:
+        condition: service_healthy
+    command:
+      - mvn
+      - verify
+      - -Dremote.url=http://selenium:4444/wd/hub
+      - -Dbrowser=chrome
+      - -Dheadless=true
+
+volumes:
+  maven-repository:

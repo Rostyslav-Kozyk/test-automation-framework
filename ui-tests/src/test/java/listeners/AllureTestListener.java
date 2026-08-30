@@ -32,6 +32,10 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         environment.setProperty("UI base URL", UiConfig.getBaseUrl());
         environment.setProperty("Browser", UiConfig.getBrowser());
         environment.setProperty("Headless", String.valueOf(UiConfig.isHeadless()));
+        environment.setProperty(
+                "UI execution mode",
+                UiConfig.getRemoteUrl().isPresent() ? "remote" : "local"
+        );
         environment.setProperty("UI timeout", UiConfig.getTimeout().toSeconds() + " seconds");
         environment.setProperty("Java version", System.getProperty("java.version"));
         environment.setProperty("Operating system", System.getProperty("os.name"));

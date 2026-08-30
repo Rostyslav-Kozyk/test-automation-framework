@@ -2,6 +2,7 @@ package config;
 
 import java.time.Duration;
 import java.util.Locale;
+import java.util.Optional;
 
 public final class UiConfig {
 
@@ -42,6 +43,15 @@ public final class UiConfig {
 
     public static boolean isHeadless() {
         return Boolean.parseBoolean(System.getProperty("headless", "false"));
+    }
+
+    public static Optional<String> getRemoteUrl() {
+        String remoteUrl = System.getProperty("remote.url");
+        if (remoteUrl == null || remoteUrl.isBlank()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(remoteUrl.trim().replaceAll("/+$", ""));
     }
 
     public static Duration getTimeout() {
