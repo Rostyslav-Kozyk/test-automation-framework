@@ -204,6 +204,19 @@ The TestNG suite names distinguish `API Tests Suite` and `UI Tests Suite` inside
 The report's Environment section records the selected API and UI targets, browser settings,
 Java version, and operating system. Secrets such as `API_KEY` are never included.
 
+### Portfolio Report Sample
+
+A compact, versioned [test execution sample](docs/test-report-sample.md) presents the latest
+successful API and UI run without publishing raw logs, HTTP traffic, machine paths, or secrets.
+After running the complete suite, refresh it from the Surefire XML results:
+
+```powershell
+./scripts/Export-PortfolioReport.ps1
+```
+
+The exporter deliberately reads only test names, statuses, counts, and durations. The detailed
+Allure report remains a local build artifact and can still be generated with the commands above.
+
 ---
 
 ## 🐳 Reproducible Docker Execution
