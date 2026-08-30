@@ -173,6 +173,22 @@ Run static code-quality checks without executing tests:
 mvn -DskipTests verify
 ```
 
+Enable the versioned Git pre-push hook once after cloning the repository:
+
+```powershell
+./scripts/Install-GitHooks.ps1
+```
+
+The installer locates Java 17 or newer and stores its path only in the repository's local Git
+configuration. If automatic discovery is not possible, provide it explicitly:
+
+```powershell
+./scripts/Install-GitHooks.ps1 -JavaHome "C:/path/to/jdk-17"
+```
+
+Every regular `git push` then runs the same Checkstyle, compilation, and SpotBugs quality gate
+with tests skipped. A failed check blocks the push before any code reaches the remote repository.
+
 Use `mvn verify` for the complete quality gate including all tests. This is the command intended
 for the future Jenkins pipeline.
 
