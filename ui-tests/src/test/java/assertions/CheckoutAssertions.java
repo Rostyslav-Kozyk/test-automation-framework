@@ -21,14 +21,26 @@ public class CheckoutAssertions extends BaseAssertions {
                 "Expected product is missing from checkout overview",
                 String.format("Verify overview contains product = %s", productName)
         );
-        assertEquals(overviewPage.getProductPrice(productName), expectedPrice, "Unexpected product price", "Verify overview product price");
-        assertEquals(overviewPage.getItemTotal(), expectedItemTotal, "Unexpected item total", "Verify item total");
-        assertEquals(overviewPage.getTax(), expectedTax, "Unexpected tax", "Verify tax");
-        assertEquals(overviewPage.getTotal(), expectedTotal, "Unexpected order total", "Verify order total");
+        String actualPrice = overviewPage.getProductPrice(productName);
+        String actualItemTotal = overviewPage.getItemTotal();
+        String actualTax = overviewPage.getTax();
+        String actualTotal = overviewPage.getTotal();
+
+        assertSoftly("Verify order overview amounts", softly -> {
+            softly.assertEquals(actualPrice, expectedPrice, assertionMessage("Unexpected product price", expectedPrice, actualPrice));
+            softly.assertEquals(actualItemTotal, expectedItemTotal, assertionMessage("Unexpected item total", expectedItemTotal, actualItemTotal));
+            softly.assertEquals(actualTax, expectedTax, assertionMessage("Unexpected tax", expectedTax, actualTax));
+            softly.assertEquals(actualTotal, expectedTotal, assertionMessage("Unexpected order total", expectedTotal, actualTotal));
+        });
     }
 
     public static void verifyOrderCompleted(CheckoutCompletePage completePage) {
-        assertEquals(completePage.getConfirmationHeader(), CONFIRMATION_HEADER, "Unexpected confirmation header", "Verify confirmation header");
-        assertEquals(completePage.getConfirmationText(), CONFIRMATION_TEXT, "Unexpected confirmation text", "Verify confirmation text");
+        String actualHeader = completePage.getConfirmationHeader();
+        String actualText = completePage.getConfirmationText();
+
+        assertSoftly("Verify order confirmation", softly -> {
+            softly.assertEquals(actualHeader, CONFIRMATION_HEADER, assertionMessage("Unexpected confirmation header", CONFIRMATION_HEADER, actualHeader));
+            softly.assertEquals(actualText, CONFIRMATION_TEXT, assertionMessage("Unexpected confirmation text", CONFIRMATION_TEXT, actualText));
+        });
     }
 }
