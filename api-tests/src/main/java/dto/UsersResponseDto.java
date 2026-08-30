@@ -36,6 +36,6 @@ public class UsersResponseDto {
     }
 
     public List<UserDto> getData() {
-        return data;
+        return data == null ? null : List.copyOf(data);
     }
 }

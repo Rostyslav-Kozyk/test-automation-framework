@@ -8,7 +8,7 @@ public class CheckoutInformationAssertions extends BaseAssertions {
         String currentUrl = driver.getCurrentUrl();
 
         assertTrue(
-                currentUrl.contains("checkout-step-two"),
+                currentUrl != null && currentUrl.contains("checkout-step-two"),
                 "Expected to be on Checkout Overview page after providing checkout information, but was: " + currentUrl,
                 "Verify checkout information provided successfully"
         );

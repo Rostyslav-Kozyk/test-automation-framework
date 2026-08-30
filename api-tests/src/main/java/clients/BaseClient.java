@@ -16,13 +16,13 @@ public abstract class BaseClient {
     private final List<Filter> filters;
 
     public BaseClient(List<Filter> filters) {
-        this.filters = filters;
+        this.filters = filters == null ? List.of() : List.copyOf(filters);
     }
 
     private RequestSpecification baseRequest() {
         RequestSpecification spec = RequestSpecFactory.baseSpec();
 
-        if (filters != null && !filters.isEmpty()) {
+        if (!filters.isEmpty()) {
             spec.filters(filters);
         }
 

@@ -1,6 +1,11 @@
 package clients;
 
-import dto.*;
+import dto.CreateUserRequestDto;
+import dto.CreateUserResponseDto;
+import dto.UpdateUserRequestDto;
+import dto.UpdateUserResponseDto;
+import dto.UserResponseDto;
+import dto.UsersResponseDto;
 import io.restassured.filter.Filter;
 import io.restassured.response.Response;
 

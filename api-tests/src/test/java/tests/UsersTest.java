@@ -3,7 +3,12 @@ package tests;
 import assertions.UsersAssertions;
 import clients.ApiResponse;
 import clients.HttpStatusCode;
-import dto.*;
+import dto.CreateUserRequestDto;
+import dto.CreateUserResponseDto;
+import dto.UpdateUserRequestDto;
+import dto.UpdateUserResponseDto;
+import dto.UserResponseDto;
+import dto.UsersResponseDto;
 import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
@@ -12,7 +17,7 @@ import testdata.ApiTestDataFactory;
 
 public class UsersTest extends BaseTest {
 
-    private final int EXPECTED_USERS_PER_PAGE = 6;
+    private static final int EXPECTED_USERS_PER_PAGE = 6;
 
     @Test(
             groups = {"api", "regression", "smoke"},

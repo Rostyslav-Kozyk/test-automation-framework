@@ -11,7 +11,7 @@ public class LoginAssertions extends BaseAssertions {
         String currentUrl = driver.getCurrentUrl();
 
         assertTrue(
-                currentUrl.contains("inventory"),
+                currentUrl != null && currentUrl.contains("inventory"),
                 "Expected to be on inventory page after successful login, but was: " + currentUrl,
                 "Verify login is successful"
         );

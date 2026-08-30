@@ -158,6 +158,19 @@ mvn test -Dgroups=regression
 
 ---
 
+## ✅ Code Quality Gate
+
+Run static code-quality checks without executing tests:
+
+```bash
+mvn -DskipTests verify
+```
+
+Use `mvn verify` for the complete quality gate including all tests. This is the command intended
+for the future Jenkins pipeline.
+
+---
+
 ## 📊 Shared UI and API Allure Report
 
 Run both test modules from the repository root. Their results are collected in one directory:
@@ -193,6 +206,7 @@ Java version, and operating system. Secrets such as `API_KEY` are never included
 * Consistent, centralized runtime configuration for API and UI modules
 * Centralized dependency and plugin versions in the parent Maven configuration
 * TestNG groups for smoke, regression, API, and UI test selection
+* Maven quality gate with Checkstyle and SpotBugs
 * Clean, readable, and interview-friendly code
 * CI/CD-ready project structure
 
@@ -200,7 +214,7 @@ Java version, and operating system. Secrets such as `API_KEY` are never included
 
 ## 🚀 Possible Future Improvements
 
-* Docker and CI integration
+* Docker and Jenkins integration
 
 ---
 

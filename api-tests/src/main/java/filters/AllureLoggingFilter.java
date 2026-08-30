@@ -43,15 +43,7 @@ public class AllureLoggingFilter implements Filter {
                 .reduce((first, second) -> first + System.lineSeparator() + second)
                 .orElse("<empty>");
 
-        String requestInfo = """
-                %s %s
-
-                Headers:
-                %s
-
-                Body:
-                %s
-                """.formatted(
+        String requestInfo = ("%s %s%n%nHeaders:%n%s%n%nBody:%n%s%n").formatted(
                 request.getMethod(),
                 request.getURI(),
                 headers,
@@ -71,16 +63,7 @@ public class AllureLoggingFilter implements Filter {
             responseBody = "<unreadable body>";
         }
 
-        String responseInfo = """
-                Status:
-                %s
-
-                Headers:
-                %s
-
-                Body:
-                %s
-                """.formatted(
+        String responseInfo = ("Status:%n%s%n%nHeaders:%n%s%n%nBody:%n%s%n").formatted(
                 response.getStatusLine(),
                 response.getHeaders(),
                 responseBody
