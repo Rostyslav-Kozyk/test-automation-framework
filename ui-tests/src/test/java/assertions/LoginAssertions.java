@@ -2,11 +2,19 @@ package assertions;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Provides assertions for login behavior.
+ */
 public class LoginAssertions extends BaseAssertions {
 
     private static final String WRONG_USERNAME_AND_PASSWORD_ERROR_MESSAGE =
             "Epic sadface: Username and password do not match any user in this service";
 
+    /**
+     * Verifies login successful.
+     *
+     * @param driver the driver value
+     */
     public static void verifyLoginSuccessful(WebDriver driver) {
         String currentUrl = driver.getCurrentUrl();
 
@@ -17,6 +25,11 @@ public class LoginAssertions extends BaseAssertions {
         );
     }
 
+    /**
+     * Verifies login failed.
+     *
+     * @param actualErrorMessage the actual error message value
+     */
     public static void verifyLoginFailed(String actualErrorMessage) {
         assertEquals(
                 actualErrorMessage,

@@ -11,8 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Creates configured client instances.
+ */
 public class ClientFactory {
 
+    /**
+     * Creates the base filters.
+     *
+     * @return the base filters
+     */
     private static List<Filter> baseFilters() {
         return List.of(
                 new AllureLoggingFilter(),
@@ -27,10 +35,20 @@ public class ClientFactory {
         );
     }
 
+    /**
+     * Returns users client.
+     *
+     * @return the users client
+     */
     public static UsersClient getUsersClient() {
         return new UsersClient(baseFilters());
     }
 
+    /**
+     * Returns users client with swagger.
+     *
+     * @return the users client with swagger
+     */
     public static UsersClient getUsersClientWithSwagger() {
         List<Filter> filters = new ArrayList<>(baseFilters());
         filters.add(SwaggerValidator.filter());

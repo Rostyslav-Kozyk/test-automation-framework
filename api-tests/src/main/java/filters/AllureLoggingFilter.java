@@ -8,8 +8,20 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 
+/**
+ * Provides Allure logging filter functionality. Used for detailed information in Allure report about API requests and
+ * responses received during test steps.
+ */
 public class AllureLoggingFilter implements Filter {
 
+    /**
+     * Attaches ReqRes information to step in Allure report.
+     *
+     * @param request      the request value
+     * @param responseSpec the response spec value
+     * @param ctx          the context value
+     * @return the Allure step with detailed ReqRes information
+     */
     @Override
     public Response filter(
             FilterableRequestSpecification request,
@@ -30,6 +42,11 @@ public class AllureLoggingFilter implements Filter {
         });
     }
 
+    /**
+     * Attaches request.
+     *
+     * @param request the request value
+     */
     private void attachRequest(FilterableRequestSpecification request) {
         Object requestBody = request.getBody();
         String body = requestBody == null
@@ -53,6 +70,11 @@ public class AllureLoggingFilter implements Filter {
         AllureAttachments.attachText("HTTP Request", requestInfo);
     }
 
+    /**
+     * Attaches response.
+     *
+     * @param response the response value
+     */
     private void attachResponse(Response response) {
         String responseBody;
         try {

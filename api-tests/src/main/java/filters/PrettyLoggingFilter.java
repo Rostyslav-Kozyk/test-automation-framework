@@ -6,8 +6,19 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 
+/**
+ * Provides pretty logging filter functionality.
+ */
 public class PrettyLoggingFilter implements Filter {
 
+    /**
+     * Filters the API responses and prints them in logs.
+     *
+     * @param requestSpec  the request spec value
+     * @param responseSpec the response spec value
+     * @param ctx          the context value
+     * @return the logged response
+     */
     @Override
     public Response filter(
             FilterableRequestSpecification requestSpec,

@@ -6,11 +6,24 @@ import io.qameta.allure.model.StepResult;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+/**
+ * Provides step executor functionality.
+ */
 public class StepExecutor {
 
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private StepExecutor() {
     }
 
+    /**
+     * Executes the API step.
+     *
+     * @param name   the name value
+     * @param action the action value
+     * @return the executed step
+     */
     public static <T> T step(String name, Supplier<T> action) {
         String uuid = UUID.randomUUID().toString();
 
@@ -31,6 +44,12 @@ public class StepExecutor {
         }
     }
 
+    /**
+     * Executes the API step.
+     *
+     * @param name   the name value
+     * @param action the action value
+     */
     public static void step(String name, Runnable action) {
         step(name, () -> {
             action.run();

@@ -51,7 +51,7 @@ public class CheckoutInformationTest extends BaseTest {
     @Test(
             groups = {"ui", "regression"},
             dataProvider = "invalidCheckoutInformation",
-            description = "Verify required checkout information"
+            description = "Verify checkout validation for missing customer information"
     )
     @Description("Verify checkout validation for missing customer information")
     public void requiredCheckoutInformationTest(

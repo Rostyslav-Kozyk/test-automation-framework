@@ -1,5 +1,8 @@
 package clients;
 
+/**
+ * Defines the supported http status code values.
+ */
 public enum HttpStatusCode {
 
     // Informational 1xx
@@ -56,15 +59,31 @@ public enum HttpStatusCode {
     private final int code;
     private final String description;
 
+    /**
+     * Creates a new {@code HttpStatusCode} instance.
+     *
+     * @param code        the code value
+     * @param description the description value
+     */
     HttpStatusCode(int code, String description) {
         this.code = code;
         this.description = description;
     }
 
+    /**
+     * Returns code.
+     *
+     * @return the code
+     */
     public int getCode() {
         return code;
     }
 
+    /**
+     * Returns description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }

@@ -4,14 +4,25 @@ import java.time.Duration;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * Provides UI config functionality.
+ */
 public final class UiConfig {
 
     private static final String DEFAULT_BROWSER = "chrome";
     private static final int DEFAULT_TIMEOUT_SECONDS = 10;
 
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private UiConfig() {
     }
 
+    /**
+     * Returns environment or custom base URL for UI tests.
+     *
+     * @return the base url
+     */
     public static String getBaseUrl() {
         String customBaseUrl = System.getProperty("ui.base.url");
         if (customBaseUrl != null && !customBaseUrl.isBlank()) {
@@ -21,6 +32,11 @@ public final class UiConfig {
         return getEnvironment().getBaseUrl();
     }
 
+    /**
+     * Returns environment.
+     *
+     * @return the environment variable
+     */
     public static Environment getEnvironment() {
         String environmentName = System.getProperty("env", "PROD")
                 .trim()
@@ -37,14 +53,29 @@ public final class UiConfig {
         }
     }
 
+    /**
+     * Returns browser.
+     *
+     * @return the browser
+     */
     public static String getBrowser() {
         return System.getProperty("browser", DEFAULT_BROWSER).trim();
     }
 
+    /**
+     * Checks whether browser is in headless mode.
+     *
+     * @return the boolean value
+     */
     public static boolean isHeadless() {
         return Boolean.parseBoolean(System.getProperty("headless", "false"));
     }
 
+    /**
+     * Returns remote url.
+     *
+     * @return the remote url
+     */
     public static Optional<String> getRemoteUrl() {
         String remoteUrl = System.getProperty("remote.url");
         if (remoteUrl == null || remoteUrl.isBlank()) {
@@ -54,6 +85,11 @@ public final class UiConfig {
         return Optional.of(remoteUrl.trim().replaceAll("/+$", ""));
     }
 
+    /**
+     * Returns timeout value for UI tests.
+     *
+     * @return the timeout value
+     */
     public static Duration getTimeout() {
         String configuredTimeout = System.getProperty(
                 "ui.timeout.seconds",

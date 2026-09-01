@@ -1,7 +1,7 @@
 package listeners;
 
+import allure.AllureLifecycle;
 import config.ApiConfig;
-import io.qameta.allure.Allure;
 import io.qameta.allure.model.Parameter;
 import org.testng.IExecutionListener;
 import org.testng.ITestListener;
@@ -18,8 +18,14 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringJoiner;
 
+/**
+ * Publishes test lifecycle information and diagnostic evidence to Allure.
+ */
 public class AllureTestListener implements ITestListener, IExecutionListener {
 
+    /**
+     * Handles execution start. Sums up environment variables in the Allure report.
+     */
     @Override
     public void onExecutionStart() {
         Properties environment = new Properties();
@@ -31,6 +37,11 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         mergeEnvironmentProperties(environment);
     }
 
+    /**
+     * Handles test start. Assigns test step name for Allure report.
+     *
+     * @param result the TestNG result value
+     */
     @Override
     public void onTestStart(ITestResult result) {
 
@@ -63,14 +74,15 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         }
 
         final String finalName = description + paramsSuffix;
-        final List<Parameter> finalParams = allureParams;
 
-        Allure.getLifecycle().updateTestCase(tc -> {
-            tc.setName(finalName);
-            tc.setParameters(finalParams);
-        });
+        AllureLifecycle.updateTestCase(finalName, allureParams);
     }
 
+    /**
+     * Merges environment properties.
+     *
+     * @param environment the environment values
+     */
     private void mergeEnvironmentProperties(Properties environment) {
         Path resultsDirectory = Path.of(System.getProperty(
                 "allure.results.directory",

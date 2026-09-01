@@ -1,7 +1,8 @@
 package listeners;
 
+import allure.AllureAttachments;
+import allure.AllureLifecycle;
 import config.UiConfig;
-import io.qameta.allure.Allure;
 import io.qameta.allure.model.Parameter;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -23,8 +24,14 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringJoiner;
 
+/**
+ * Publishes test lifecycle information and diagnostic evidence to Allure.
+ */
 public class AllureTestListener implements ITestListener, IExecutionListener {
 
+    /**
+     * Handles execution start. Sums up environment variables in the Allure report.
+     */
     @Override
     public void onExecutionStart() {
         Properties environment = new Properties();
@@ -43,6 +50,11 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         mergeEnvironmentProperties(environment);
     }
 
+    /**
+     * Handles test start. Assigns test step name for Allure report.
+     *
+     * @param result the TestNG result value
+     */
     @Override
     public void onTestStart(ITestResult result) {
 
@@ -75,14 +87,15 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         }
 
         final String finalName = description + paramsSuffix;
-        final List<Parameter> finalParams = allureParams;
 
-        Allure.getLifecycle().updateTestCase(tc -> {
-            tc.setName(finalName);
-            tc.setParameters(finalParams);
-        });
+        AllureLifecycle.updateTestCase(finalName, allureParams);
     }
 
+    /**
+     * Handles test failure.
+     *
+     * @param result the TestNG result value
+     */
     @Override
     public void onTestFailure(ITestResult result) {
         Object testClass = result.getInstance();
@@ -95,30 +108,35 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         }
     }
 
+    /**
+     * Attaches failure evidence.
+     *
+     * @param driver the driver value
+     */
     private void attachFailureEvidence(WebDriver driver) {
-        safelyAttach(() -> Allure.addAttachment(
+        safelyAttach(() -> AllureAttachments.attachText(
                 "Current URL",
-                "text/plain",
                 driver.getCurrentUrl()
         ));
 
-        safelyAttach(() -> Allure.addAttachment(
+        safelyAttach(() -> AllureAttachments.attachPage(
                 "Page source",
-                "text/html",
-                driver.getPageSource(),
-                ".html"
+                driver.getPageSource()
         ));
 
         if (driver instanceof TakesScreenshot screenshotDriver) {
-            safelyAttach(() -> Allure.addAttachment(
+            safelyAttach(() -> AllureAttachments.attachImage(
                     "Screenshot on failure",
-                    "image/png",
-                    new ByteArrayInputStream(screenshotDriver.getScreenshotAs(OutputType.BYTES)),
-                    ".png"
+                    new ByteArrayInputStream(screenshotDriver.getScreenshotAs(OutputType.BYTES))
             ));
         }
     }
 
+    /**
+     * Executes the safely attach operation.
+     *
+     * @param attachment the attachment value
+     */
     private void safelyAttach(Runnable attachment) {
         try {
             attachment.run();
@@ -127,6 +145,11 @@ public class AllureTestListener implements ITestListener, IExecutionListener {
         }
     }
 
+    /**
+     * Merges environment properties.
+     *
+     * @param environment the environment values
+     */
     private void mergeEnvironmentProperties(Properties environment) {
         Path resultsDirectory = Path.of(System.getProperty(
                 "allure.results.directory",

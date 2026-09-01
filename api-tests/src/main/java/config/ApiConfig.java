@@ -2,11 +2,22 @@ package config;
 
 import java.util.Locale;
 
+/**
+ * Provides API config functionality.
+ */
 public final class ApiConfig {
 
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private ApiConfig() {
     }
 
+    /**
+     * Returns environment or custom base URL for API tests.
+     *
+     * @return the base url
+     */
     public static String getBaseUrl() {
         String customBaseUrl = System.getProperty("api.base.url");
         if (customBaseUrl != null && !customBaseUrl.isBlank()) {
@@ -16,6 +27,11 @@ public final class ApiConfig {
         return getEnvironment().getBaseUrl();
     }
 
+    /**
+     * Returns environment.
+     *
+     * @return the environment variable
+     */
     public static Environment getEnvironment() {
         String environmentName = System.getProperty("env", "PROD")
                 .trim()

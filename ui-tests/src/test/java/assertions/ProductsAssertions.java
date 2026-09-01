@@ -2,8 +2,17 @@ package assertions;
 
 import pages.ProductsPage;
 
+/**
+ * Provides assertions for products behavior.
+ */
 public class ProductsAssertions extends BaseAssertions {
 
+    /**
+     * Verifies cart items count.
+     *
+     * @param productsPage  the products page value
+     * @param expectedCount the expected count value
+     */
     public static void verifyCartItemsCount(ProductsPage productsPage, int expectedCount) {
         var actualCount = productsPage.getCartItemsCount();
 

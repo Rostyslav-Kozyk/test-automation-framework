@@ -2,8 +2,18 @@ package assertions;
 
 import pages.CartPage;
 
+/**
+ * Provides assertions for Cart page.
+ */
 public class CartAssertions extends BaseAssertions {
 
+    /**
+     * Verifies product on Cart page.
+     *
+     * @param cartPage      the cart page value
+     * @param productName   the product name value
+     * @param expectedPrice the expected price value
+     */
     public static void verifyCartProduct(CartPage cartPage, String productName, String expectedPrice) {
         assertTrue(
                 cartPage.containsProduct(productName),
@@ -18,6 +28,11 @@ public class CartAssertions extends BaseAssertions {
         );
     }
 
+    /**
+     * Verifies Cart page is empty.
+     *
+     * @param cartPage the cart page value
+     */
     public static void verifyEmptyCart(CartPage cartPage) {
         assertTrue(
                 cartPage.isEmpty(),
